@@ -26,6 +26,8 @@
     -fx-background-radius: 12px;
     -fx-padding: 5px;
 }
+
+
 .green {
     -fx-background-color:
         linear-gradient(#f0ff35, #a9ff00),

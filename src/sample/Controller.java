@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -75,6 +76,9 @@ public class Controller {
     @FXML // fx:id="closeButton"
     private Button closeButton;
 
+    @FXML //fx:id="webViewPreview"
+    private WebView webViewPreview;
+
     @FXML
     private ToggleGroup Group1;
 
@@ -82,6 +86,9 @@ public class Controller {
 
     @FXML
     public void initialize() {
+        webViewPreview.getEngine().load(
+                Controller.class.getResource("Cachequestion.htm").toExternalForm()
+        );
         //by default have the precodesonly radio selected:
         precodesOnlyRadio.setSelected(true);
 
