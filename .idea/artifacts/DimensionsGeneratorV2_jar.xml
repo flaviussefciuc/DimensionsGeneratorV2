@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DimensionsGeneratorV2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DimensionsGeneratorV2_jar</output-path>
+    <root id="archive" name="DimensionsGeneratorV2_jar.jar">
+      <element id="module-output" name="DimensionsGeneratorV2" />
+      <element id="file-copy" path="$PROJECT_DIR$/out/production/buttons.css" />
+    </root>
+  </artifact>
+</component>
