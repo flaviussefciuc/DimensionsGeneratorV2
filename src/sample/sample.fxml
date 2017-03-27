@@ -146,6 +146,11 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </Label>
+                        <ChoiceBox fx:id="generateChoiceBox" prefHeight="25.0" prefWidth="184.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </GridPane.margin>
+                        </ChoiceBox>
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="3">

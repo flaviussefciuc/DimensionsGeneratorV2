@@ -27,6 +27,9 @@ public class Controller {
     @FXML //fx:id="templateChoiceBox"
     private ChoiceBox templateChoiceBox;
 
+    @FXML //fx:id="generateChoiceBox"
+    private ChoiceBox generateChoiceBox;
+
     @FXML // fx:id="gridAcrossTextArea"
     private TextArea gridAcrossTextArea;
 
@@ -75,7 +78,7 @@ public class Controller {
     @FXML
     private ToggleGroup Group1;
 
-    CategoricalQuestion myQuestion=new CategoricalQuestion();
+    private CategoricalQuestion myQuestion=new CategoricalQuestion();
 
     @FXML
     public void initialize() {
@@ -93,15 +96,17 @@ public class Controller {
                 "\t\t#precodCode \"<img src='https:\\\\cdn.ipsos.com\\{#Currentsid}\\#precodCode.jpg'/></br>#precodLabel\",\n",
                 "\t};");
 
-        List<QuestionTemplate> list = new ArrayList<QuestionTemplate>();
+        List<QuestionTemplate> list = new ArrayList<>();
         list.add(defaultTemplate);
         list.add(defaultTemplate1);
         list.add(defaultTemplate2);
         ObservableList<QuestionTemplate> observableList = FXCollections.observableList(list);
         templateChoiceBox.setItems(observableList);
+        generateChoiceBox.setItems(observableList);
 
         //set the first item from the choice box to be selected:
         templateChoiceBox.getSelectionModel().selectFirst();
+        generateChoiceBox.getSelectionModel().selectFirst();
 
         //set the default text areas from the template tab:
         patternStartTextArea.setText("\t#questionName \"#questionText\" \n\tcategorical [#lowerLimit..#upperLimit] \n\t{\n");
@@ -116,6 +121,15 @@ public class Controller {
                 patternStartTextArea.setText(tempQtemplate.getPatern_Start());
                 patternPrecodesTextArea.setText(tempQtemplate.getPatern_precodes());
                 patternEndTextArea.setText(tempQtemplate.getPatern_end());
+                //myQuestion.setTemplate(tempQtemplate);
+            }
+        });
+
+        // listen for changes to the choiceBox selection and update the question object question template
+        generateChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<QuestionTemplate>() {
+            @Override public void changed(ObservableValue<? extends QuestionTemplate> selected, QuestionTemplate oldFruit, QuestionTemplate newFruit) {
+                QuestionTemplate tempQtemplate;
+                tempQtemplate=selected.getValue();
                 myQuestion.setTemplate(tempQtemplate);
             }
         });
@@ -143,7 +157,7 @@ public class Controller {
             generated="\t"+questionNameTextField.getText()+ " \""+questionTextTextArea.getText()+"\"";
 
             //create CategoricalQuestion object:
-            List<Precode<String,String>> precodeList = new ArrayList<Precode<String,String>>();
+            List<Precode<String,String>> precodeList = new ArrayList<>();
             Precode myPrecode;
             myQuestion.setName(questionNameTextField.getText());
             myQuestion.setQuestionText(questionTextTextArea.getText());
