@@ -168,6 +168,7 @@
 	-fx-fill: white;
 }
 
+/* tab stuff */
 .dark-blue-tab {
     -fx-background-color: 
         #42ebf4,
@@ -182,6 +183,51 @@
     -fx-text-fill: linear-gradient(white, #d0d0d0);
     /*-fx-font-size: 12px;*/
     -fx-padding: 10 20 10 20;
+	
+}
+.tab-pane {
+    -fx-tab-min-height: 3em;
+    /* 24 */
+
+    -fx-tab-max-height: 3em;
+    /* 24 */
+}
+.tab .tab-label {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER;
+    -fx-text-fill: #EBEAF0;
+}
+.tab {
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
+	-fxmin-width: 100px;
+	-fx-background-color: #3eb0ae;
+    -fx-border-size: 1px;
+	-fx-border-style: solid;
+	-fx-border-color: #3ba9a6;
+    -fx-outline: 0;
+	-fx-border-radius: 2px;	
+    -fx-vertical-align: middle;
+}
+.tab:selected {
+    -fx-background-color: #37969b;
+}
+.tab:focused {
+    -fx-focus-color: transparent;
+}
+.tab {
+    -fx-padding: 0 30 0 30;
+}
+.tab-pane *.tab-header-background {
+    -fx-background-color: transparent;
+}
+.tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
+}
+.tab:selected .focus-indicator {
+    -fx-focus-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .dark-blue {
