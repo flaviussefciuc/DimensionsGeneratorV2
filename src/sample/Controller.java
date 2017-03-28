@@ -79,6 +79,12 @@ public class Controller {
     @FXML //fx:id="webViewPreview"
     private WebView webViewPreview;
 
+    @FXML //fx:id="refreshButton"
+    private Button refreshButton;
+
+    @FXML //fx:id="minimizeButton"
+    private Button minimizeButton;
+
     @FXML
     private ToggleGroup Group1;
 
@@ -388,6 +394,12 @@ public class Controller {
             stage.close();
         }
     }
+
+    @FXML
+    void minimizeButtonAction(ActionEvent event){
+            ((Stage)((Button)event.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
 
 
 }
