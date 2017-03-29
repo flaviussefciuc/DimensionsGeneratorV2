@@ -69,7 +69,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <RadioButton fx:id="multipleRadio" mnemonicParsing="false" text="Multiple" textFill="#41c9bd" GridPane.rowIndex="2">
+                        <RadioButton fx:id="multipleRadio" mnemonicParsing="false" onAction="#hideGridAcrossTextArea" text="Multiple" textFill="#41c9bd" GridPane.rowIndex="2">
                            <toggleGroup>
                               <ToggleGroup fx:id="Group1" />
                            </toggleGroup>
@@ -77,12 +77,12 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </RadioButton>
-                        <RadioButton fx:id="gridRadio" mnemonicParsing="false" text="Grid" textFill="#41c9bd" toggleGroup="$Group1" GridPane.rowIndex="3">
+                        <RadioButton fx:id="gridRadio" mnemonicParsing="false" onAction="#showGridAcrossTextArea" text="Grid" textFill="#41c9bd" toggleGroup="$Group1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
                         </RadioButton>
-                        <RadioButton fx:id="singleRadio" accessibleRole="CHECK_BOX" mnemonicParsing="false" text="Single" textFill="#41c9bd" toggleGroup="$Group1" GridPane.rowIndex="1">
+                        <RadioButton fx:id="singleRadio" accessibleRole="CHECK_BOX" mnemonicParsing="false" onAction="#hideGridAcrossTextArea" text="Single" textFill="#41c9bd" toggleGroup="$Group1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>
@@ -90,7 +90,7 @@
                               <Insets />
                            </opaqueInsets>
                         </RadioButton>
-                        <RadioButton fx:id="precodesOnlyRadio" mnemonicParsing="false" text="precodes only" textFill="#41c9bd" toggleGroup="$Group1" GridPane.rowIndex="4">
+                        <RadioButton fx:id="precodesOnlyRadio" mnemonicParsing="false" onAction="#hideGridAcrossTextArea" text="precodes only" textFill="#41c9bd" toggleGroup="$Group1" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </GridPane.margin>

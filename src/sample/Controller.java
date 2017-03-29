@@ -6,7 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
@@ -92,6 +97,9 @@ public class Controller {
 
     @FXML
     public void initialize() {
+        //disable gridAcross from start, it will be show if the gridradiobutton is checked:
+        gridAcrossTextArea.setDisable(true);
+
         webViewPreview.getEngine().load(
                 Controller.class.getResource("Cachequestion.htm").toExternalForm()
         );
@@ -152,7 +160,7 @@ public class Controller {
     @FXML
     void generateButtonAction(ActionEvent event) {
         if(event.getSource()==generateButton) {
-            resultTextArea.setText("TEst123");
+
             String generated;
 
             //get the options for grid down:
@@ -255,11 +263,11 @@ public class Controller {
 //                System.out.print(myQuestion.toString());
 
                 //replace last comma with nothing:
-//                generated = generated.replaceAll(",$", "");
-//                generated=generated+"\t};";
+                generated = generated.replaceAll(",$", "");
+                generated=generated+"\t};";
 
 
-                generated=myQuestion.toString();
+//                generated=myQuestion.toString();
             }
 
             // Multiple answer question:
@@ -310,7 +318,7 @@ public class Controller {
                 iterationsScale="";
 
                 precode=null;
-                generated=generated+" loop";
+                generated=generated+"\n\tloop";
                 generated=generated+"\n\t{\n";
 
                 for (int i=0;i<GroupOfAnswers.length;i++)
@@ -394,6 +402,19 @@ public class Controller {
             stage.close();
         }
     }
+
+    @FXML
+    void hideGridAcrossTextArea(ActionEvent event)
+    {
+        gridAcrossTextArea.setDisable(true);
+    }
+
+    @FXML
+    void showGridAcrossTextArea(ActionEvent event)
+    {
+        gridAcrossTextArea.setDisable(false);
+    }
+
 
     @FXML
     void minimizeButtonAction(ActionEvent event){
