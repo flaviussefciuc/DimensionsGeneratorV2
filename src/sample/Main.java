@@ -16,14 +16,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Dimensions Generator");
-        Scene mainScene=new Scene(root, 800, 650);
+        Scene mainScene=new Scene(root, 850, 650);
         mainScene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(mainScene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
 
-        // allow the clock background to be used to drag the clock around.
+        // allow the background to be used to drag around.
         final Delta dragDelta = new Delta();
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent mouseEvent) {
