@@ -272,7 +272,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </WebView>
-                  <Button fx:id="refreshButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" styleClass="dark-blue-button" text="Refresh">
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#generateButtonAction" prefHeight="25.0" prefWidth="113.0" styleClass="dark-blue-button" text="Refresh">
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </GridPane.margin>

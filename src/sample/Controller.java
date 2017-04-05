@@ -14,7 +14,14 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
@@ -94,6 +101,8 @@ public class Controller {
     private ToggleGroup Group1;
 
     private CategoricalQuestion myQuestion=new CategoricalQuestion();
+    private GridQuestion myGridQuestion=new GridQuestion();
+    private int contor=0;
 
     @FXML
     public void initialize() {
@@ -159,7 +168,7 @@ public class Controller {
 
     @FXML
     void generateButtonAction(ActionEvent event) {
-        if(event.getSource()==generateButton) {
+
 
             String generated;
 
@@ -182,6 +191,13 @@ public class Controller {
             Precode myPrecode;
             myQuestion.setName(questionNameTextField.getText());
             myQuestion.setQuestionText(questionTextTextArea.getText());
+
+            //create GridQuestion:
+            List<Precode<String,String>> iterationList = new ArrayList<>();
+            List<Precode<String,String>> answerList = new ArrayList<>();
+            myGridQuestion.setName(questionNameTextField.getText());
+            myGridQuestion.setQuestionText(questionTextTextArea.getText());
+
 
             // only precodes:
             if (precodesOnlyRadio.isSelected())
@@ -267,7 +283,7 @@ public class Controller {
                 generated=generated+"\t};";
 
 
-//                generated=myQuestion.toString();
+                generated=myQuestion.toString();
             }
 
             // Multiple answer question:
@@ -342,6 +358,11 @@ public class Controller {
                     }
                     generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex-1)+"\",\n";
 
+
+                    myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex-1));
+                    iterationList.add(myPrecode);
+
+
                     iterationsGrid=iterationsGrid+"_"+precode+",";
                     precode=null;
                 }
@@ -378,6 +399,9 @@ public class Controller {
                     generated=generated+"\t\t\t_"+precode+" \""+ScaleGroup[i].substring(0, firstindex-1)+"\",\n";
                     iterationsScale=iterationsScale+"_"+precode+",";
 
+                    myPrecode=new Precode("_"+precode,ScaleGroup[i].substring(0, firstindex-1));
+                    answerList.add(myPrecode);
+
                     precode=null;
                     //////
                     ///generated=generated+"\t\t\t_"+(i+1)+" \""+ScaleGroup[i]+"\",\n";
@@ -390,9 +414,55 @@ public class Controller {
                 //iterationsScale=iterationsScale+"_"+precode;
 
                 generated=generated+"\t\t};\n\t)expand grid;";
+
+                myGridQuestion.setIterationList(iterationList);
+                myGridQuestion.setAnswerList(answerList);
+
+                generated = myGridQuestion.toString();
+
             }
             resultTextArea.setText(generated);
-        }
+
+
+            //For Cachepage:
+            if(gridRadio.isSelected()) {
+                String tempString;
+                tempString="";
+
+                File input = new File("Cachequestion.htm");
+                //contor++;
+                //String fileName = "Cachequestion_ProgressiveGrid_" + myGridQuestion.getName() + ".htm";
+
+                try {
+                    Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
+                    tempString = doc.toString();
+
+                    tempString = tempString.replaceAll("#NumeIntrebare", myGridQuestion.getName());
+                    tempString = tempString.replaceAll("#TextIntrebare", myGridQuestion.getQuestionText());
+                    tempString = tempString.replaceAll("#TabelGenerat", myGridQuestion.generateTableForCachePage());
+
+                    // The name of the file to create/open.
+                   /* String path = System.getProperty("user.dir");
+                    FileWriter fileWriter = new FileWriter(path + "\\out\\production\\DimensionsGeneratorV2\\sample\\" + fileName);
+                    System.out.println(path + "\\src\\sample\\" + fileName);
+                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                    bufferedWriter.write(tempString);
+
+                    // Always close files.
+                    bufferedWriter.close();
+                    fileWriter.close();*/
+
+                } catch (IOException e) {
+                    System.out.print("Nu am gasit fisierul");
+                    e.printStackTrace();
+                }
+
+   /*             webViewPreview.getEngine().load(
+                        Controller.class.getResource(fileName).toExternalForm()
+                );*/
+                webViewPreview.getEngine().loadContent(tempString);
+            }
+
     }
 
     @FXML
