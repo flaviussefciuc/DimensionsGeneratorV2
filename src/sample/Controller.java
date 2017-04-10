@@ -28,6 +28,7 @@ import java.util.List;
 
 public class Controller {
 
+
     @FXML //fx:id="patternStartTextArea"
     private TextArea patternStartTextArea;
 
@@ -429,7 +430,8 @@ public class Controller {
                 String tempString;
                 tempString="";
 
-                File input = new File("Cachequestion.htm");
+                //generating cachepage with files:
+       /*         File input = new File("Cachequestion.htm");
                 //contor++;
                 //String fileName = "Cachequestion_ProgressiveGrid_" + myGridQuestion.getName() + ".htm";
 
@@ -437,12 +439,13 @@ public class Controller {
                     Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
                     tempString = doc.toString();
 
+                    tempString= GridQuestion.GridProgresiveTemplate;
                     tempString = tempString.replaceAll("#NumeIntrebare", myGridQuestion.getName());
                     tempString = tempString.replaceAll("#TextIntrebare", myGridQuestion.getQuestionText());
                     tempString = tempString.replaceAll("#TabelGenerat", myGridQuestion.generateTableForCachePage());
 
                     // The name of the file to create/open.
-                   /* String path = System.getProperty("user.dir");
+                   *//*String path = System.getProperty("user.dir");
                     FileWriter fileWriter = new FileWriter(path + "\\out\\production\\DimensionsGeneratorV2\\sample\\" + fileName);
                     System.out.println(path + "\\src\\sample\\" + fileName);
                     BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -450,16 +453,22 @@ public class Controller {
 
                     // Always close files.
                     bufferedWriter.close();
-                    fileWriter.close();*/
+                    fileWriter.close();*//*
 
                 } catch (IOException e) {
                     System.out.print("Nu am gasit fisierul");
                     e.printStackTrace();
                 }
 
-   /*             webViewPreview.getEngine().load(
+   *//*             webViewPreview.getEngine().load(
                         Controller.class.getResource(fileName).toExternalForm()
                 );*/
+
+                //without files:
+                tempString= GridQuestion.GridProgresiveTemplate;
+                tempString = tempString.replaceAll("#NumeIntrebare", myGridQuestion.getName());
+                tempString = tempString.replaceAll("#TextIntrebare", myGridQuestion.getQuestionText());
+                tempString = tempString.replaceAll("#TabelGenerat", myGridQuestion.generateTableForCachePage());
                 webViewPreview.getEngine().loadContent(tempString);
             }
 
