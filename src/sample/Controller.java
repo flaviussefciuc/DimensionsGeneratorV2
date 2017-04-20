@@ -6,24 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 
 public class Controller {
@@ -101,7 +88,8 @@ public class Controller {
     @FXML
     private ToggleGroup Group1;
 
-    private CategoricalQuestion myQuestion=new CategoricalQuestion();
+    private CategoricalQuestion categoricalSingleQuestion =new CategoricalQuestion();
+    private CategoricalQuestion categoricalMultipleQuestion =new CategoricalQuestion();
     private GridQuestion myGridQuestion=new GridQuestion();
     private int contor=0;
 
@@ -110,9 +98,9 @@ public class Controller {
         //disable gridAcross from start, it will be show if the gridradiobutton is checked:
         gridAcrossTextArea.setDisable(true);
 
-        webViewPreview.getEngine().load(
+/*        webViewPreview.getEngine().load(
                 Controller.class.getResource("Cachequestion.htm").toExternalForm()
-        );
+        );*/
         //by default have the precodesonly radio selected:
         precodesOnlyRadio.setSelected(true);
 
@@ -152,7 +140,7 @@ public class Controller {
                 patternStartTextArea.setText(tempQtemplate.getPatern_Start());
                 patternPrecodesTextArea.setText(tempQtemplate.getPatern_precodes());
                 patternEndTextArea.setText(tempQtemplate.getPatern_end());
-                //myQuestion.setTemplate(tempQtemplate);
+                //categoricalSingleQuestion.setTemplate(tempQtemplate);
             }
         });
 
@@ -161,7 +149,8 @@ public class Controller {
             @Override public void changed(ObservableValue<? extends QuestionTemplate> selected, QuestionTemplate oldFruit, QuestionTemplate newFruit) {
                 QuestionTemplate tempQtemplate;
                 tempQtemplate=selected.getValue();
-                myQuestion.setTemplate(tempQtemplate);
+                categoricalSingleQuestion.setTemplate(tempQtemplate);
+                categoricalMultipleQuestion.setTemplate(tempQtemplate);
             }
         });
 
@@ -190,8 +179,10 @@ public class Controller {
             //create CategoricalQuestion object:
             List<Precode<String,String>> precodeList = new ArrayList<>();
             Precode myPrecode;
-            myQuestion.setName(questionNameTextField.getText());
-            myQuestion.setQuestionText(questionTextTextArea.getText());
+            categoricalSingleQuestion.setName(questionNameTextField.getText());
+            categoricalSingleQuestion.setQuestionText(questionTextTextArea.getText());
+            categoricalMultipleQuestion.setName(questionNameTextField.getText());
+            categoricalMultipleQuestion.setQuestionText(questionTextTextArea.getText());
 
             //create GridQuestion:
             List<Precode<String,String>> iterationList = new ArrayList<>();
@@ -234,8 +225,8 @@ public class Controller {
                     precode=null;
                 }
 
-                myQuestion.setPrecodeList(precodeList);
-                System.out.print(myQuestion.toString());
+                categoricalSingleQuestion.setPrecodeList(precodeList);
+                System.out.print(categoricalSingleQuestion.toString());
 
                 //replace last comma with nothing:
                 generated = generated.replaceAll(",$", "");
@@ -276,15 +267,15 @@ public class Controller {
                     precode=null;
                 }
 
-                myQuestion.setPrecodeList(precodeList);
-//                System.out.print(myQuestion.toString());
+                categoricalSingleQuestion.setPrecodeList(precodeList);
+//                System.out.print(categoricalSingleQuestion.toString());
 
                 //replace last comma with nothing:
                 generated = generated.replaceAll(",$", "");
                 generated=generated+"\t};";
 
 
-                generated=myQuestion.toString();
+                generated= categoricalSingleQuestion.toString();
             }
 
             // Multiple answer question:
@@ -317,12 +308,18 @@ public class Controller {
                     }
                     generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex-1)+"\",\n";
 
+                    myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex-1));
+                    precodeList.add(myPrecode);
                     precode=null;
                 }
 
+                categoricalMultipleQuestion.setPrecodeList(precodeList);
+                categoricalMultipleQuestion.setUpperLimit(precodeList.size());
                 //replace last comma with nothing:
                 generated = generated.replaceAll(",$", "");
                 generated=generated+"\t};";
+
+                generated= categoricalMultipleQuestion.toString();
             }
 
             // Grid question:
@@ -426,6 +423,28 @@ public class Controller {
 
 
             //For Cachepage:
+            if(singleRadio.isSelected()) {
+                String tempString;
+
+                //without files:
+                tempString= categoricalSingleQuestion.GetCategoricalButtonsSingleTemplate();
+                tempString = tempString.replaceAll("#NumeIntrebare", categoricalSingleQuestion.getName());
+                tempString = tempString.replaceAll("#TextIntrebare", categoricalSingleQuestion.getQuestionText());
+                tempString = tempString.replaceAll("#TabelGenerat", categoricalSingleQuestion.generateTableForCachePage());
+                webViewPreview.getEngine().loadContent(tempString);
+            }
+
+            if(multipleRadio.isSelected()) {
+                String tempString;
+
+                //without files:
+                tempString= categoricalMultipleQuestion.GetCategoricalButtonsMultipleTemplate();
+                tempString = tempString.replaceAll("#NumeIntrebare", categoricalMultipleQuestion.getName());
+                tempString = tempString.replaceAll("#TextIntrebare", categoricalMultipleQuestion.getQuestionText());
+                tempString = tempString.replaceAll("#TabelGenerat", categoricalMultipleQuestion.generateTableForCachePage());
+                webViewPreview.getEngine().loadContent(tempString);
+            }
+
             if(gridRadio.isSelected()) {
                 String tempString;
                 tempString="";
