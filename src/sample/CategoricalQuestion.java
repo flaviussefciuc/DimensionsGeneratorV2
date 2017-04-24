@@ -80,10 +80,20 @@ public class CategoricalQuestion extends Question {
         thePattern_precodes = template.getPatern_precodes();
         thePattern_end = template.getPatern_end();
 
-        returnedString=thePattern_start.replaceAll("#questionName",name).replaceAll("#questionText",questionText).replaceAll("#lowerLimit",String.valueOf(lowerLimit)).replaceAll("#upperLimit",String.valueOf(upperLimit));
+        if (this.upperLimit>1) {
+            returnedString = thePattern_start.replace("#questionName", name).replace("#questionText", questionText).replace("#lowerLimit", String.valueOf(lowerLimit)).replace("#upperLimit","");
+        }else
+        {
+            returnedString = thePattern_start.replace("#questionName", name).replace("#questionText", questionText).replace("#lowerLimit", String.valueOf(lowerLimit)).replace("#upperLimit", String.valueOf(upperLimit));
+        }
 
         for (int i = 0; i < precodeList.size(); i++) {
-            returnedString= returnedString + thePattern_precodes.replaceAll("#precodCode",precodeList.get(i).getPrecod()).replaceAll("#precodLabel",precodeList.get(i).getLabel().replaceAll("&","&amp;")) ;
+            if ( precodeList.get(i).getLabel().toLowerCase().equals("none") || precodeList.get(i).getLabel().toLowerCase().equals("none of these") || precodeList.get(i).getLabel().toLowerCase().equals("none of the above")|| precodeList.get(i).getLabel().toLowerCase().equals("don't know")) {
+                returnedString = returnedString + thePattern_precodes.replace("#precodCode", precodeList.get(i).getPrecod()).replace("#precodLabel", precodeList.get(i).getLabel().replace("&", "&amp;")).replaceAll(",$", " fix exclusive,");
+            }else
+            {
+                returnedString = returnedString + thePattern_precodes.replace("#precodCode", precodeList.get(i).getPrecod()).replace("#precodLabel", precodeList.get(i).getLabel().replace("&", "&amp;"));
+            }
         }
 
         returnedString = returnedString.replaceAll(",$", "");

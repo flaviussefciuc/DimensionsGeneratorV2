@@ -91,6 +91,18 @@ public class Controller {
     @FXML //fx:id="minimizeButton"
     private Button minimizeButton;
 
+    @FXML //fx:id="answersContextMenu"
+    private ContextMenu answersContextMenu;
+
+    @FXML //fx:id="boldMenuItem"
+    private MenuItem boldMenuItem;
+
+    @FXML //fx:id="underlineMenuItem"
+    private MenuItem underlineMenuItem;
+
+    @FXML //fx:id="italicMenuItem"
+    private MenuItem italicMenuItem;
+
     @FXML
     private ToggleGroup Group1;
 
@@ -439,9 +451,9 @@ public class Controller {
 
                 //without files:
                 tempString= categoricalSingleQuestion.GetCategoricalButtonsSingleTemplate();
-                tempString = tempString.replaceAll("#NumeIntrebare", categoricalSingleQuestion.getName());
-                tempString = tempString.replaceAll("#TextIntrebare", categoricalSingleQuestion.getQuestionText());
-                tempString = tempString.replaceAll("#TabelGenerat", categoricalSingleQuestion.generateTableForCachePage());
+                tempString = tempString.replace("#NumeIntrebare", categoricalSingleQuestion.getName());
+                tempString = tempString.replace("#TextIntrebare", categoricalSingleQuestion.getQuestionText());
+                tempString = tempString.replace("#TabelGenerat", categoricalSingleQuestion.generateTableForCachePage());
                 webViewPreview.getEngine().loadContent(tempString);
             }
 
@@ -450,9 +462,9 @@ public class Controller {
 
                 //without files:
                 tempString= categoricalMultipleQuestion.GetCategoricalButtonsMultipleTemplate();
-                tempString = tempString.replaceAll("#NumeIntrebare", categoricalMultipleQuestion.getName());
-                tempString = tempString.replaceAll("#TextIntrebare", categoricalMultipleQuestion.getQuestionText());
-                tempString = tempString.replaceAll("#TabelGenerat", categoricalMultipleQuestion.generateTableForCachePage());
+                tempString = tempString.replace("#NumeIntrebare", categoricalMultipleQuestion.getName());
+                tempString = tempString.replace("#TextIntrebare", categoricalMultipleQuestion.getQuestionText());
+                tempString = tempString.replace("#TabelGenerat", categoricalMultipleQuestion.generateTableForCachePage());
                 webViewPreview.getEngine().loadContent(tempString);
             }
 
@@ -496,13 +508,28 @@ public class Controller {
 
                 //without files:
                 tempString = myGridQuestion.GetGridProgresiveTemplate();
-                tempString = tempString.replaceAll("#NumeIntrebare", myGridQuestion.getName());
-                tempString = tempString.replaceAll("#TextIntrebare", myGridQuestion.getQuestionText());
-                tempString = tempString.replaceAll("#TabelGenerat", myGridQuestion.generateTableForCachePage());
+                tempString = tempString.replace("#NumeIntrebare", myGridQuestion.getName());
+                tempString = tempString.replace("#TextIntrebare", myGridQuestion.getQuestionText());
+                tempString = tempString.replace("#TabelGenerat", myGridQuestion.generateTableForCachePage());
                 //System.out.print(tempString);
                 webViewPreview.getEngine().loadContent(tempString);
             }
 
+    }
+
+    @FXML
+    void actionContextMenu(ActionEvent event)
+    {
+        if (event.getSource()==boldMenuItem) {
+            gridDownTextArea.replaceSelection("<b>" + gridDownTextArea.getSelectedText() + "</b>");
+        }else if (event.getSource()==underlineMenuItem)
+        {
+            gridDownTextArea.replaceSelection("<u>" + gridDownTextArea.getSelectedText() + "</u>");
+        }
+        else if(event.getSource()==italicMenuItem)
+        {
+            gridDownTextArea.replaceSelection("<i>" + gridDownTextArea.getSelectedText() + "</i>");
+        }
     }
 
     public static String getNormalText(String htmlText) {
