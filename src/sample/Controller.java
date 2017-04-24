@@ -7,8 +7,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +44,8 @@ public class Controller {
     @FXML // fx:id="gridDownTextArea"
     private TextArea gridDownTextArea;
 
-    @FXML // fx:id="questionTextTextArea"
-    private TextArea questionTextTextArea;
+    @FXML // fx:id="questionTextHtml"
+    private HTMLEditor questionTextHtml;
 
     @FXML // fx:id="resultTextArea"
     private TextArea resultTextArea;
@@ -160,6 +164,7 @@ public class Controller {
     void generateButtonAction(ActionEvent event) {
 
 
+
             String generated;
 
             //get the options for grid down:
@@ -174,22 +179,21 @@ public class Controller {
             String [] ScaleGroup;
             ScaleGroup=myScale.split("\n");
 
-            generated="\t"+questionNameTextField.getText()+ " \""+questionTextTextArea.getText()+"\"";
+            generated="\t"+questionNameTextField.getText()+ " \""+getNormalText(questionTextHtml.getHtmlText())+"\"";
 
             //create CategoricalQuestion object:
             List<Precode<String,String>> precodeList = new ArrayList<>();
             Precode myPrecode;
             categoricalSingleQuestion.setName(questionNameTextField.getText());
-            categoricalSingleQuestion.setQuestionText(questionTextTextArea.getText());
+            categoricalSingleQuestion.setQuestionText(getNormalText(questionTextHtml.getHtmlText()));
             categoricalMultipleQuestion.setName(questionNameTextField.getText());
-            categoricalMultipleQuestion.setQuestionText(questionTextTextArea.getText());
+            categoricalMultipleQuestion.setQuestionText(getNormalText(questionTextHtml.getHtmlText()));
 
             //create GridQuestion:
             List<Precode<String,String>> iterationList = new ArrayList<>();
             List<Precode<String,String>> answerList = new ArrayList<>();
             myGridQuestion.setName(questionNameTextField.getText());
-            myGridQuestion.setQuestionText(questionTextTextArea.getText());
-
+            myGridQuestion.setQuestionText(getNormalText(questionTextHtml.getHtmlText()));
 
             // only precodes:
             if (precodesOnlyRadio.isSelected())
@@ -484,13 +488,45 @@ public class Controller {
                 );*/
 
                 //without files:
-                tempString= GridQuestion.GridProgresiveTemplate;
+                tempString = myGridQuestion.GetGridProgresiveTemplate();
                 tempString = tempString.replaceAll("#NumeIntrebare", myGridQuestion.getName());
                 tempString = tempString.replaceAll("#TextIntrebare", myGridQuestion.getQuestionText());
                 tempString = tempString.replaceAll("#TabelGenerat", myGridQuestion.generateTableForCachePage());
+                //System.out.print(tempString);
                 webViewPreview.getEngine().loadContent(tempString);
             }
 
+    }
+
+    public static String getNormalText(String htmlText) {
+
+        String result;
+
+
+        Document doc = Jsoup.parse(htmlText,"UTF-8");
+        System.out.println(doc.html());
+        Element theBody=doc.body();
+
+        result = theBody.html().replaceAll("<b>", "#sfbold");
+        result = result.replaceAll("</b>", "#sfclosebold");
+        result = result.replaceAll("<u>", "#sfunderline");
+        result = result.replaceAll("</u>", "#sfcloseunderline");
+        result = result.replaceAll("<i>", "#sfItalic");
+        result = result.replaceAll("</i>", "#sfcloseItalic");
+        result = result.replaceAll("<[^>]*>", "").trim();
+        result = result.replaceAll("#sfbold", "<b>");
+        result = result.replaceAll("#sfclosebold", "</b>");
+        result = result.replaceAll("#sfunderline", "<u>");
+        result = result.replaceAll("#sfcloseunderline", "</u>");
+        result = result.replaceAll("#sfItalic", "<i>");
+        result = result.replaceAll("#sfcloseItalic", "</i>");
+        result = result.replaceAll("&nbsp;", ""); //remove nbsp
+        result = result.replaceAll("(?m) +$", ""); ///remove trailing spaces for each line
+        result = result.replaceAll("(?m)^+\\s", ""); ///remove spaces from the start of the line
+        result = result.replaceAll("\n\n", "\n"); ///remove double new line
+        result = result.trim();
+        System.out.println(result);
+        return result;
     }
 
     @FXML

@@ -1,3 +1,16 @@
+.tool-bar
+{
+    /*-fx-visibility:hidden;
+     -fx-display:none; */
+	-fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 60%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    /*-fx-opacity: 0;*/
+	-fx-width: 10px;
+	-fx-height: 10px;
+}
 .radio-button .radio {
     -fx-border-width: 1px;
     -fx-border-color: #41c9bd;

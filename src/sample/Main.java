@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Dimensions Generator");
-        Scene mainScene=new Scene(root, 850, 650);
+        Scene mainScene=new Scene(root, 1080, 720);
         mainScene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(mainScene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
