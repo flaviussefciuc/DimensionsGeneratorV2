@@ -425,6 +425,7 @@ public class Controller {
                 generated = myGridQuestion.toString();
 
             }
+            //generated=generated.replaceAll("&","&amp;");
             resultTextArea.setText(generated);
 
             final Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -530,6 +531,7 @@ public class Controller {
         result = result.replaceAll("(?m) +$", ""); ///remove trailing spaces for each line
         result = result.replaceAll("(?m)^+\\s", ""); ///remove spaces from the start of the line
         result = result.replaceAll("\n\n", "\n"); ///remove double new line
+
         result = result.trim();
         System.out.println(result);
         return result;

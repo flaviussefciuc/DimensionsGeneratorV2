@@ -110,7 +110,7 @@ public class GridQuestion extends Question {
         returnedString = returnedString + "\t{\n";
 
         for (int i = 0; i < IterationList.size(); i++) {
-            returnedString= returnedString + "\t\t" + IterationList.get(i).getPrecod() + " \"" + IterationList.get(i).getLabel() + "\",\n";
+            returnedString= returnedString + "\t\t" + IterationList.get(i).getPrecod() + " \"" + IterationList.get(i).getLabel().replaceAll("&","&amp;") + "\",\n";
         }
         returnedString = returnedString.replaceAll(",$", "");
 
@@ -121,7 +121,7 @@ public class GridQuestion extends Question {
         returnedString = returnedString + "\t\t{\n";
 
         for (int i = 0; i < AnswerList.size(); i++) {
-            returnedString= returnedString + "\t\t\t" + AnswerList.get(i).getPrecod() + " \"" + AnswerList.get(i).getLabel() + "\",\n";
+            returnedString= returnedString + "\t\t\t" + AnswerList.get(i).getPrecod() + " \"" + AnswerList.get(i).getLabel().replaceAll("&","&amp;") + "\",\n";
         }
         returnedString = returnedString.replaceAll(",$", "");
 

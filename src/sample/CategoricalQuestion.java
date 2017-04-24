@@ -83,7 +83,7 @@ public class CategoricalQuestion extends Question {
         returnedString=thePattern_start.replaceAll("#questionName",name).replaceAll("#questionText",questionText).replaceAll("#lowerLimit",String.valueOf(lowerLimit)).replaceAll("#upperLimit",String.valueOf(upperLimit));
 
         for (int i = 0; i < precodeList.size(); i++) {
-            returnedString= returnedString + thePattern_precodes.replaceAll("#precodCode",precodeList.get(i).getPrecod()).replaceAll("#precodLabel",precodeList.get(i).getLabel()) ;
+            returnedString= returnedString + thePattern_precodes.replaceAll("#precodCode",precodeList.get(i).getPrecod()).replaceAll("#precodLabel",precodeList.get(i).getLabel().replaceAll("&","&amp;")) ;
         }
 
         returnedString = returnedString.replaceAll(",$", "");
