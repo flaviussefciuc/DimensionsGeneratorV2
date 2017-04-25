@@ -130,7 +130,7 @@ public class Controller {
                 "\t};");
         QuestionTemplate defaultTemplate2=new QuestionTemplate("Categorical with images",
                 "\t#questionName \"#questionText\" \n\tcategorical [#lowerLimit..#upperLimit] \n\t{\n",
-                "\t\t#precodCode \"<img src='https:\\\\cdn.ipsos.com\\{#Currentsid}\\#precodCode.jpg'/></br>#precodLabel\",\n",
+                "\t\t#precodCode \"<img src='https:\\\\cdn.ipsosinteractive.com\\projects\\{#Currentsid}\\#precodCode.jpg'/></br>#precodLabel\",\n",
                 "\t};");
 
         List<QuestionTemplate> list = new ArrayList<>();
@@ -278,15 +278,23 @@ public class Controller {
                         precode=Integer.toString(i+1);
                         firstindex=firstindex+1;
                     }
-                    generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex-1)+"\",\n";
+                    if (GroupOfAnswers[i].contains("[") && GroupOfAnswers[i].contains("]"))
+                    {
+                        generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex)+"\",\n";
+                        myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex));
+                        System.out.println(GroupOfAnswers[i].substring(0,firstindex)+"!!flavius");
+                    }else
+                    {
+                        generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex-1)+"\",\n";
+                        myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex-1));
+                    }
 
-                    myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex-1));
+
                     precodeList.add(myPrecode);
                     precode=null;
                 }
 
                 categoricalSingleQuestion.setPrecodeList(precodeList);
-//                System.out.print(categoricalSingleQuestion.toString());
 
                 //replace last comma with nothing:
                 generated = generated.replaceAll(",$", "");
@@ -324,9 +332,16 @@ public class Controller {
                         precode=Integer.toString(i+1);
                         firstindex=firstindex+1;
                     }
-                    generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex-1)+"\",\n";
+                    if (GroupOfAnswers[i].contains("[")&& GroupOfAnswers[i].contains("]")) {
+                        generated = generated + "\t\t_" + precode + " \"" + GroupOfAnswers[i].substring(0, firstindex) + "\",\n";
+                        myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex));
+                    }
+                    else
+                    {
+                        generated = generated + "\t\t_" + precode + " \"" + GroupOfAnswers[i].substring(0, firstindex - 1) + "\",\n";
+                        myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex-1));
+                    }
 
-                    myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex-1));
                     precodeList.add(myPrecode);
                     precode=null;
                 }
@@ -372,10 +387,15 @@ public class Controller {
                         precode=Integer.toString(i+1);
                         firstindex=firstindex+1;
                     }
-                    generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex-1)+"\",\n";
+                    if (GroupOfAnswers[i].contains("[")&&GroupOfAnswers[i].contains("]")){
+                        generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex)+"\",\n";
+                        myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex));
+                    }
+                    else {
+                        generated = generated + "\t\t_" + precode + " \"" + GroupOfAnswers[i].substring(0, firstindex - 1) + "\",\n";
+                        myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex-1));
+                    }
 
-
-                    myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex-1));
                     iterationList.add(myPrecode);
 
 
@@ -412,10 +432,14 @@ public class Controller {
                         precode=Integer.toString(i+1);
                         firstindex=firstindex+1;
                     }
-                    generated=generated+"\t\t\t_"+precode+" \""+ScaleGroup[i].substring(0, firstindex-1)+"\",\n";
-                    iterationsScale=iterationsScale+"_"+precode+",";
-
-                    myPrecode=new Precode("_"+precode,ScaleGroup[i].substring(0, firstindex-1));
+                    if (ScaleGroup[i].contains("[")&&ScaleGroup[i].contains("]")) {
+                        generated = generated + "\t\t\t_" + precode + " \"" + ScaleGroup[i].substring(0, firstindex) + "\",\n";
+                        myPrecode = new Precode("_" + precode, ScaleGroup[i].substring(0, firstindex));
+                    }else {
+                        generated = generated + "\t\t\t_" + precode + " \"" + ScaleGroup[i].substring(0, firstindex - 1) + "\",\n";
+                        myPrecode = new Precode("_" + precode, ScaleGroup[i].substring(0, firstindex - 1));
+                    }
+                    iterationsScale = iterationsScale + "_" + precode + ",";
                     answerList.add(myPrecode);
 
                     precode=null;

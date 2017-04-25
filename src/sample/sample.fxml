@@ -54,17 +54,17 @@
                           <items>
                             <MenuItem fx:id="boldMenuItem" mnemonicParsing="false" onAction="#actionContextMenu" text="bold">
                                  <accelerator>
-                                    <KeyCodeCombination alt="ANY" code="B" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                                    <KeyCodeCombination alt="UP" code="B" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
                               <MenuItem fx:id="underlineMenuItem" mnemonicParsing="false" onAction="#actionContextMenu" text="underline">
                                  <accelerator>
-                                    <KeyCodeCombination alt="ANY" code="U" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                                    <KeyCodeCombination alt="UP" code="U" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
                               <MenuItem fx:id="italicMenuItem" mnemonicParsing="false" onAction="#actionContextMenu" text="italic">
                                  <accelerator>
-                                    <KeyCodeCombination alt="ANY" code="I" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                                    <KeyCodeCombination alt="UP" code="I" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
                           </items>
