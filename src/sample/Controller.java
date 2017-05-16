@@ -282,7 +282,6 @@ public class Controller {
                     {
                         generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex)+"\",\n";
                         myPrecode=new Precode("_"+precode,GroupOfAnswers[i].substring(0, firstindex));
-                        System.out.println(GroupOfAnswers[i].substring(0,firstindex)+"!!flavius");
                     }else
                     {
                         generated=generated+"\t\t_"+precode+" \""+GroupOfAnswers[i].substring(0, firstindex-1)+"\",\n";

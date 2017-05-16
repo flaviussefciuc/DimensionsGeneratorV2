@@ -19,23 +19,23 @@
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
-<TabPane fx:id="mainTabPane" prefHeight="720.0" prefWidth="1080.0" styleClass="dark-blue-tab" stylesheets="@../../buttons.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane fx:id="mainTabPane" styleClass="dark-blue-tab" stylesheets="@../../buttons.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <tabs>
       <Tab closable="false" text="Generate">
          <content>
             <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="1041.0" stylesheets="@../../buttons.css">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="230.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="230.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
+                <ColumnConstraints minWidth="10.0" prefWidth="230.0" />
+                <ColumnConstraints minWidth="10.0" prefWidth="230.0" />
+                  <ColumnConstraints minWidth="250.0" prefWidth="250.0" />
+                  <ColumnConstraints minWidth="250.0" prefWidth="250.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="300.0" minHeight="200.0" prefHeight="200.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="400.0" minHeight="200.0" prefHeight="300.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" />
+                  <RowConstraints minHeight="20.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" />
+                <RowConstraints minHeight="200.0" prefHeight="200.0" />
+                <RowConstraints minHeight="200.0" prefHeight="300.0" />
                 <RowConstraints maxHeight="6.0" minHeight="0.0" prefHeight="6.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
               </rowConstraints>
